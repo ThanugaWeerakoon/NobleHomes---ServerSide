@@ -31,6 +31,14 @@ const Overview = () => {
 
     fetchHomes();
   }, [db]);
+  const formatPrice = (price) => {
+    if (!price || isNaN(price)) return "Price not available";
+
+    return `LKR ${Number(price).toLocaleString("en-LK", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  };
 
   const handleDelete = async () => {
     if (homeToDelete) {
@@ -81,7 +89,9 @@ const Overview = () => {
                 {home.title}
               </h3>
               <p className="text-gray-600 mb-2">{home.address}</p>
-              <p className="text-gray-800 mb-2">Price: LKR{home.price}.00</p>
+              <p className="text-gray-800 mb-2">
+                Price: {formatPrice(home.price)}
+              </p>
               <p className="text-gray-600 mb-2">Bedrooms: {home.bedrooms}</p>
               <p className="text-gray-600 mb-4">Bathrooms: {home.bathrooms}</p>
               <p className="text-gray-500 text-sm mb-4">{home.description}</p>
